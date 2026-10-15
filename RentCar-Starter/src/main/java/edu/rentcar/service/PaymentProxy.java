@@ -3,8 +3,8 @@ package edu.rentcar.service;
 // Proxy: verifica al cliente antes depermitir el procesamiento de pago
 public class PaymentProxy implements  PaymentService{
 
-    private PaymentService paymentService;
-    private CustomerVerificationService verificationService;
+    private final PaymentService paymentService;
+    private final CustomerVerificationService verificationService;
 
     public PaymentProxy(PaymentService paymentService, CustomerVerificationService verificationService){
 
