@@ -1,6 +1,9 @@
 package edu.rentcar.model;
 
 import java.time.LocalDate;
+//1. Esta clase es un builder que crea una plantilla
+// para las solicitudes de alquiler
+
 
 public class RentalRequest {
     private final String id;
