@@ -24,17 +24,33 @@ public class RentalRequestService {
             RentalMode rentalMode,
             String status,
             boolean isAditionalServices){
-        RentalRequest request = new RentalRequest.Builder(
-                id,
-                costumerId,
-                vehicleId,
-                startDate,
-                endDate,rentalMode,
-                status
-        )
-                .isAitionalService(isAditionalServices)
-                .build();
+        if (isAditionalServices){
+            RentalRequest request = new RentalRequest.Builder(
+                    id,
+                    costumerId,
+                    vehicleId,
+                    startDate,
+                    endDate,rentalMode,
+                    status
+            )
+                    .isAitionalService(true)
+                    .build();
 
-        requests.add(request);
+            requests.add(request);
+        }else{
+            RentalRequest request = new RentalRequest.Builder(
+                    id,
+                    costumerId,
+                    vehicleId,
+                    startDate,
+                    endDate,rentalMode,
+                    status
+            )
+                    .isAitionalService(false)
+                    .build();
+
+            requests.add(request);
+        }
+
     }
 }
