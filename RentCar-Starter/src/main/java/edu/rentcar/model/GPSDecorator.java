@@ -1,4 +1,4 @@
 package edu.rentcar.model;
 
-public interface Aditional {
+public class GPSDecorator {
 }

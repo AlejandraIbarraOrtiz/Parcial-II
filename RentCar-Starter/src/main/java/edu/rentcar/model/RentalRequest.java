@@ -11,7 +11,7 @@ public class RentalRequest {
     private final String vehicleId;
     private final LocalDate startDate;
     private final LocalDate endDate;
-    private final Aditional aditionalService;
+    private final boolean isAditionalService;
     private final RentalMode rentalMode;
     private final String status;
 
@@ -21,7 +21,7 @@ public class RentalRequest {
         this.vehicleId = builder.vehicleId;
         this.startDate = builder.startDate;
         this.endDate = builder.endDate;
-        this.aditionalService = builder.aditionalService;
+        this.isAditionalService = builder.isAditionalService;
         this.rentalMode = builder.rentalMode;
         this.status = builder.status;
 
@@ -51,8 +51,8 @@ public class RentalRequest {
         return status;
     }
 
-    public Aditional getAditionalService() {
-        return aditionalService;
+    public boolean getAditionalService() {
+        return isAditionalService;
     }
 
     public RentalMode getRentalMode() {
@@ -65,7 +65,7 @@ public class RentalRequest {
         private String vehicleId;
         private LocalDate startDate;
         private LocalDate endDate;
-        private Aditional aditionalService;
+        private boolean isAditionalService;
         private RentalMode rentalMode;
         private String status;
 
@@ -86,8 +86,8 @@ public class RentalRequest {
             this.rentalMode = rentalMode;
             this.status = status;
         }
-        public Builder aditionalService(Aditional aditionalService){
-            this.aditionalService = aditionalService;
+        public Builder isAitionalService(boolean aditionalService){
+            this.isAditionalService = isAditionalService;
             return this;
         }
 
