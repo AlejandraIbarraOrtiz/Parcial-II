@@ -59,7 +59,7 @@ public class RentalRequest {
         return rentalMode;
     }
 
-    private static class Builder{
+    public static class Builder{
         private String id;
         private String customerId;
         private String vehicleId;
@@ -86,7 +86,7 @@ public class RentalRequest {
             this.rentalMode = rentalMode;
             this.status = status;
         }
-        public Builder isAitionalService(boolean aditionalService){
+        public Builder isAitionalService(boolean isAditionalService){
             this.isAditionalService = isAditionalService;
             return this;
         }
