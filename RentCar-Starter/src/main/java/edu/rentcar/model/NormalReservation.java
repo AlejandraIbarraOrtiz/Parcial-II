@@ -27,11 +27,11 @@ public class NormalReservation implements Reservation{
 
     @Override
     public String description() {
-        return "";
+        return rentalRequest.getRentalMode().getClass().getSimpleName();
     }
 
     @Override
-    public double calculatePrice() {
-        return 0;
+    public double calculatePrice(double rate) {
+        return rentalRequest.getRentalMode().createRate().setRate(rate);
     }
 }

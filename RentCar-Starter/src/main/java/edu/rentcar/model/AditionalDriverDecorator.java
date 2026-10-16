@@ -2,18 +2,29 @@ package edu.rentcar.model;
 
 public class AditionalDriverDecorator extends ReservationDecorator{
 
-    public AditionalDriverDecorator(Reservation reservation){
-        super(reservation);
+    private double price;
 
+    public AditionalDriverDecorator(Reservation reservation, double price ){
+        super(reservation);
+        this.price = price;
+
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 
     @Override
     public String description(){
-        return reservation.description() + "Aditional draiver";
+        return reservation.description() + " + Aditional draiver";
     }
 
     @Override
-    public double calculatePrice(){
-        return reservation.calculatePrice() +
+    public double calculatePrice(double rate){
+        return reservation.calculatePrice(rate) + price;
     }
 }

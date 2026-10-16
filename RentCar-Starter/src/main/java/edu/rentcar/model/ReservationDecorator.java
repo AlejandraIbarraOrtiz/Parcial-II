@@ -13,7 +13,7 @@ public abstract class ReservationDecorator implements Reservation {
     }
 
     @Override
-    public double calculatePrice() {
-        return reservation.calculatePrice();
+    public double calculatePrice(double rate) {
+        return reservation.calculatePrice(rate);
     }
 }
