@@ -1,6 +1,8 @@
 package edu.rentcar.model;
 
-public class NormalReservation implements Reservation{
+import java.time.temporal.ChronoUnit;
+
+public class NormalReservation implements Reservation {
     private String id;
     private RentalRequest rentalRequest;
 
@@ -27,11 +29,20 @@ public class NormalReservation implements Reservation{
 
     @Override
     public String description() {
-        return rentalRequest.getRentalMode().getClass().getSimpleName();
+        return "Base Reservation (" + rentalRequest.getRentalMode() + ")";
     }
 
     @Override
     public double calculatePrice(double rate) {
-        return rentalRequest.getRentalMode().createRate().setRate(rate);
+        if (rentalRequest == null || rentalRequest.getStartDate() == null || rentalRequest.getEndDate() == null) {
+            return rate;
+        }
+
+        long days = ChronoUnit.DAYS.between(rentalRequest.getStartDate(), rentalRequest.getEndDate());
+        if (days <= 0) {
+            days = 1; // Mínimo 1 día de alquiler
+        }
+
+        return days * rate;
     }
 }

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.rentcar.controller.RentalModeController" spacing="12">
+    <Label text="Rental Modes Configuration" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+
+    <VBox spacing="10" style="-fx-background-color: white; -fx-padding: 16; -fx-background-radius: 8;">
+        <Label text="Configure Mode Parameters (RentalStore)" style="-fx-font-size: 15px; -fx-font-weight: bold;"/>
+
+        <GridPane hgap="12" vgap="10">
+            <Label text="Rental Mode" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+            <ComboBox fx:id="modeSelectCombo" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+            <Label text="Daily Rate (COP)" GridPane.columnIndex="2" GridPane.rowIndex="0"/>
+            <TextField fx:id="rateField" promptText="e.g. 150000" GridPane.columnIndex="3" GridPane.rowIndex="0"/>
+
+            <Label text="Mileage Limit (KM)" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+            <TextField fx:id="mileageField" promptText="e.g. 200 (0 for unlimited)" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+            <Label text="Medical Policy" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+            <TextField fx:id="medicalPolicyField" promptText="e.g. SURA Basic $10.000" GridPane.columnIndex="3" GridPane.rowIndex="1"/>
+
+            <Label text="Roadside Assistance" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+            <TextField fx:id="roadsideAssistanceField" promptText="e.g. 24/7 National Towing" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+            <HBox spacing="8" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                <Button text="Save Configuration" onAction="#saveModeConfiguration" style="-fx-background-color: #2457a7; -fx-text-fill: white;"/>
+                <Button text="Clear" onAction="#clearForm"/>
+            </HBox>
+        </GridPane>
+        <Label text="Uses RentalStore to execute setRate(), setMileage(), setMedicalpolicy(), and setRoadsideAssistance()." style="-fx-text-fill: #64748b;"/>
+    </VBox>
+
+    <Label text="Configured Rental Modes &amp; Active Parameters" style="-fx-font-size: 15px; -fx-font-weight: bold;"/>
+
+    <TableView fx:id="rentalModeTable" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="modeNameColumn" text="Mode Name" prefWidth="120"/>
+            <TableColumn fx:id="rateColumn" text="Daily Rate (COP)" prefWidth="130"/>
+            <TableColumn fx:id="mileageColumn" text="Mileage Limit (KM)" prefWidth="130"/>
+            <TableColumn fx:id="medicalPolicyColumn" text="Medical Policy Coverage" prefWidth="220"/>
+            <TableColumn fx:id="roadsideAssistanceColumn" text="Roadside Assistance Level" prefWidth="220"/>
+        </columns>
+    </TableView>
+</VBox>
