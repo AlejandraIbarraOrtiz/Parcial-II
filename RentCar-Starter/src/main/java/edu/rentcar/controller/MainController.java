@@ -37,6 +37,16 @@ public class MainController {
     }
 
     @FXML
+    private void showRentalRequests() {
+        loadView("rental-request-view.fxml", "Rental Requests");
+    }
+
+    @FXML
+    private void showRentalModes() {
+        loadView("rental-mode-view.fxml", "Rental Modes");
+    }
+
+    @FXML
     private void showReservations() {
         loadView("reservation-view.fxml", "Reservations");
     }

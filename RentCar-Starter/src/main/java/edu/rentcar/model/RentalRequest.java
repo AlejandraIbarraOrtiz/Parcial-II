@@ -12,7 +12,7 @@ public class RentalRequest {
     private final LocalDate startDate;
     private final LocalDate endDate;
     private final boolean isAditionalService;
-    private final RentalMode rentalMode;
+    private final String rentalMode;
     private final String status;
 
     private RentalRequest(Builder builder){
@@ -55,7 +55,7 @@ public class RentalRequest {
         return isAditionalService;
     }
 
-    public RentalMode getRentalMode() {
+    public String getRentalMode() {
         return rentalMode;
     }
 
@@ -66,7 +66,7 @@ public class RentalRequest {
         private LocalDate startDate;
         private LocalDate endDate;
         private boolean isAditionalService;
-        private RentalMode rentalMode;
+        private String rentalMode;
         private String status;
 
         public Builder (
@@ -75,7 +75,7 @@ public class RentalRequest {
                 String vehicleId,
                 LocalDate startDate,
                 LocalDate endDate,
-                RentalMode rentalMode,
+                String rentalMode,
                 String status
         ){
             this.id = id;
