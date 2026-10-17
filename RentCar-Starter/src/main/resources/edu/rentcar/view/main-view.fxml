@@ -14,14 +14,20 @@
             <Label text="RentCar" style="-fx-font-size: 25px; -fx-font-weight: bold; -fx-text-fill: white;"/>
             <Label text="Rental Management" style="-fx-text-fill: #b9c7dc;"/>
             <Separator style="-fx-opacity: 0.35;"/>
+
             <Button text="Dashboard" onAction="#showDashboard" maxWidth="Infinity"
-                    style="-fx-alignment: CENTER_LEFT; -fx-background-color: #29466f; -fx-text-fill: white;"/>
+                    style="-fx-alignment: CENTER_LEFT; -fx-background-color: transparent; -fx-text-fill: white;"/>
             <Button text="Customers" onAction="#showCustomers" maxWidth="Infinity"
                     style="-fx-alignment: CENTER_LEFT; -fx-background-color: transparent; -fx-text-fill: white;"/>
             <Button text="Vehicles" onAction="#showVehicles" maxWidth="Infinity"
                     style="-fx-alignment: CENTER_LEFT; -fx-background-color: transparent; -fx-text-fill: white;"/>
+            <Button text="Rental Requests" onAction="#showRentalRequests" maxWidth="Infinity"
+                    style="-fx-alignment: CENTER_LEFT; -fx-background-color: transparent; -fx-text-fill: white;"/>
+            <Button text="Rental Modes" onAction="#showRentalModes" maxWidth="Infinity"
+                    style="-fx-alignment: CENTER_LEFT; -fx-background-color: transparent; -fx-text-fill: white;"/>
             <Button text="Reservations" onAction="#showReservations" maxWidth="Infinity"
                     style="-fx-alignment: CENTER_LEFT; -fx-background-color: transparent; -fx-text-fill: white;"/>
+
             <VBox VBox.vgrow="ALWAYS"/>
             <Label text="PGII · Parcial 2" style="-fx-text-fill: #b9c7dc;"/>
         </VBox>

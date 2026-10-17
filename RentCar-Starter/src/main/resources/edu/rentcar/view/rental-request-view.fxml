@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.rentcar.controller.RentalRequestController" spacing="12">
+    <Label text="Rental requests" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+
+    <VBox spacing="10" style="-fx-background-color: white; -fx-padding: 16; -fx-background-radius: 8;">
+        <Label text="Register a rental request" style="-fx-font-size: 15px; -fx-font-weight: bold;"/>
+
+        <GridPane hgap="12" vgap="10">
+            <!-- Fila 0 -->
+            <Label text="Customer ID" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+            <TextField fx:id="customerIdField" promptText="e.g. CUST-101" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+            <Label text="Vehicle ID" GridPane.columnIndex="2" GridPane.rowIndex="0"/>
+            <TextField fx:id="vehicleIdField" promptText="e.g. VEH-1005" GridPane.columnIndex="3" GridPane.rowIndex="0"/>
+
+            <!-- Fila 1 -->
+            <Label text="Start date" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+            <DatePicker fx:id="startDatePicker" promptText="Select start date" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+            <Label text="End date" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+            <DatePicker fx:id="endDatePicker" promptText="Select end date" maxWidth="Infinity" GridPane.columnIndex="3" GridPane.rowIndex="1"/>
+
+            <!-- Fila 2 -->
+            <Label text="Rental mode" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+            <ComboBox fx:id="rentalModeCombo" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+            <Label text="Status" GridPane.columnIndex="2" GridPane.rowIndex="2"/>
+            <ComboBox fx:id="statusCombo" maxWidth="Infinity" GridPane.columnIndex="3" GridPane.rowIndex="2"/>
+
+            <!-- Fila 3: Opcional y Botones -->
+            <CheckBox fx:id="aditionalServiceCheckBox" text="Additional service" GridPane.columnIndex="0" GridPane.rowIndex="3" GridPane.columnSpan="2"/>
+
+            <HBox spacing="8" GridPane.columnIndex="3" GridPane.rowIndex="3">
+                <Button text="Register request" onAction="#registerRentalRequest" style="-fx-background-color: #2457a7; -fx-text-fill: white;"/>
+                <Button text="Clear" onAction="#clearRentalRequestForm"/>
+            </HBox>
+        </GridPane>
+
+        <Label text="Registration validates required fields, date sequence, and rental parameters." style="-fx-text-fill: #64748b;"/>
+    </VBox>
+
+    <Label text="Registered rental requests" style="-fx-font-size: 15px; -fx-font-weight: bold;"/>
+
+    <TableView fx:id="rentalRequestTable" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="requestIdColumn" text="ID" prefWidth="80"/>
+            <TableColumn fx:id="customerIdColumn" text="Customer ID" prefWidth="100"/>
+            <TableColumn fx:id="vehicleIdColumn" text="Vehicle ID" prefWidth="100"/>
+            <TableColumn fx:id="startDateColumn" text="Start Date" prefWidth="100"/>
+            <TableColumn fx:id="endDateColumn" text="End Date" prefWidth="100"/>
+            <TableColumn fx:id="rentalModeColumn" text="Rental Mode" prefWidth="90"/>
+            <TableColumn fx:id="statusColumn" text="Status" prefWidth="90"/>
+            <TableColumn fx:id="aditionalServiceColumn" text="Add. Service" prefWidth="90"/>
+        </columns>
+    </TableView>
+</VBox>
