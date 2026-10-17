@@ -7,8 +7,10 @@ import edu.rentcar.model.NormalReservation;
 import edu.rentcar.model.RentalRequest;
 import edu.rentcar.model.RentalStore;
 import edu.rentcar.model.Reservation;
+import edu.rentcar.model.ReservationDecorator;
 import edu.rentcar.repository.ReservationRepository;
 
+import java.lang.reflect.Field;
 import java.util.List;
 import java.util.function.Function;
 
@@ -30,7 +32,7 @@ public class ReservationService {
     }
 
     /**
-     * Crea una reserva y encadena dinámicamente los decoradores usando reduce.
+     * Crea una reserva y encadena dinámicamente los decoradores elegidos.
      */
     public Reservation createReservation(String requestId, List<Function<Reservation, Reservation>> selectedDecorators) {
         if (requestId == null || requestId.trim().isEmpty()) {
@@ -52,22 +54,30 @@ public class ReservationService {
         return reservationRepository.save(decoratedReservation);
     }
 
+    /**
+     * Obtiene la tarifa diaria (rate) desde RentalStore para la modalidad seleccionada
+     * y ejecuta el cálculo recursivo delegando en la cadena del Decorator.
+     */
     public double calculateReservationTotal(Reservation reservation) {
         if (reservation == null) {
             return 0.0;
         }
 
+        // 1. Extrae el nombre de la modalidad desempaquetando los decoradores
         String modeName = extractModeName(reservation);
-        double rate = rentalModeService.getAllRentalStores().stream()
+
+        // 2. Busca la tarifa diaria configurada en RentalStore para esa modalidad
+        double baseRate = rentalModeService.getAllRentalStores().stream()
                 .filter(s -> s.getModeName().equalsIgnoreCase(modeName))
                 .map(RentalStore::getConfiguredRate)
                 .findFirst()
                 .orElse(0.0);
 
-        return reservation.calculatePrice(rate);
+        // 3. Ejecuta el cálculo recursivo: (Días x Tarifa Base) + Servicios Adicionales
+        return reservation.calculatePrice(baseRate);
     }
 
-    // Métodos fábrica paramétricos para recibir el precio dinámico desde el Controller/UI
+    // Métodos fábrica paramétricos para los servicios adicionales
     public Function<Reservation, Reservation> withGPS(double price) {
         return res -> new GPSDecorator(res, price);
     }
@@ -80,8 +90,23 @@ public class ReservationService {
         return res -> new AditionalDriverDecorator(res, price);
     }
 
+    /**
+     * Desempaqueta recursivamente la pila de decoradores hasta obtener la
+     * NormalReservation y consultar su modalidad (RentalMode).
+     **/
     private String extractModeName(Reservation reservation) {
-        if (reservation instanceof NormalReservation normal) {
+        Reservation current = reservation;
+        while (current instanceof ReservationDecorator decorator) {
+            try {
+                Field field = ReservationDecorator.class.getDeclaredField("reservation");
+                field.setAccessible(true);
+                current = (Reservation) field.get(decorator);
+            } catch (Exception e) {
+                break;
+            }
+        }
+
+        if (current instanceof NormalReservation normal && normal.getRentalRequest() != null) {
             return normal.getRentalRequest().getRentalMode();
         }
         return "";
