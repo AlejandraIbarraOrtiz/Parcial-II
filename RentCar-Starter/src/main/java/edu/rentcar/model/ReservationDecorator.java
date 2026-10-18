@@ -16,4 +16,10 @@ public abstract class ReservationDecorator implements Reservation {
     public double calculatePrice(double rate) {
         return reservation.calculatePrice(rate);
     }
+
+    @Override
+    public RentalRequest getRentalRequest(){
+
+        return reservation.getRentalRequest();
+    }
 }

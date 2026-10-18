@@ -1,6 +1,7 @@
 package edu.rentcar.app;
 
 import com.rentcar.paymentclient.PaymentApiClient;
+import edu.rentcar.facade.RentCarFacade;
 import edu.rentcar.repository.RentalModeRepository;
 import edu.rentcar.repository.RentalRequestRepository;
 import edu.rentcar.repository.ReservationRepository;
@@ -12,9 +13,24 @@ import edu.rentcar.service.*;
  */
 public final class ApplicationServices {
 
-    private static final VehicleService VEHICLE_SERVICE = new VehicleService(new VehicleRepository());
+    private static final VehicleService VEHICLE_SERVICE =
+            new VehicleService(new VehicleRepository());
 
-    private static final PaymentService PAYMENT_SERVICE = new PaymentAdapter(new PaymentApiClient("http://localhost:8080"));
+    private static final CustomerVerificationService CUSTOMER_VERIFICATION_SERVICE =
+            new CustomerVerificationService();
+
+    /*Creamos el servicio de pagos utilizando Proxy y Adapter.
+    - El Proxy verifica primero si el cliente está autorizado.
+    - Si está autorizado, el Proxy delega el pago al Adapter.
+    - El Adapter se encarga de comunicarse con la API externa.
+     */
+    private static final PaymentService PAYMENT_SERVICE =
+            new PaymentProxy(
+                    new PaymentAdapter(
+                           new PaymentApiClient("http://localhost:8080")
+                    ),
+                    CUSTOMER_VERIFICATION_SERVICE
+            );
 
     private static final RentalRequestRepository RENTAL_REQUEST_REPOSITORY = new RentalRequestRepository();
     private static final RentalRequestService RENTAL_REQUEST_SERVICE = new RentalRequestService(RENTAL_REQUEST_REPOSITORY);
@@ -24,20 +40,28 @@ public final class ApplicationServices {
 
     // ReservationService requiere RentalRequestService y RentalModeService, por lo que debe instanciarse después
     private static final ReservationRepository RESERVATION_REPOSITORY = new ReservationRepository();
-    private static final ReservationService RESERVATION_SERVICE = new ReservationService(
-            RESERVATION_REPOSITORY,
-            RENTAL_REQUEST_SERVICE,
-            RENTAL_MODE_SERVICE
-    );
+    private static final ReservationService RESERVATION_SERVICE =
+            new ReservationService(
+                RESERVATION_REPOSITORY,
+                RENTAL_REQUEST_SERVICE,
+                VEHICLE_SERVICE,
+                CUSTOMER_VERIFICATION_SERVICE
+            );
+
+    private static final RentCarFacade RENT_CAR_FACADE =
+            new RentCarFacade(
+                    RESERVATION_SERVICE,
+                    PAYMENT_SERVICE
+            );
 
     private ApplicationServices() {
     }
 
-    public static VehicleService vehicleService() {
+    public static  VehicleService vehicleService(){
         return VEHICLE_SERVICE;
     }
 
-    public static PaymentService paymentService() {
+    public static PaymentService paymentService(){
         return PAYMENT_SERVICE;
     }
 
@@ -51,5 +75,10 @@ public final class ApplicationServices {
 
     public static ReservationService reservationService() {
         return RESERVATION_SERVICE;
+    }
+
+    public static RentCarFacade rentCarFacade(){
+
+        return RENT_CAR_FACADE;
     }
 }

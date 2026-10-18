@@ -9,10 +9,18 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.ScrollPane?>
 
-<VBox xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.rentcar.controller.ReservationController" spacing="12">
+<ScrollPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.rentcar.controller.ReservationController" fitToWidth="true"
+            fitToHeight="false" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED">
+
+    <content>
+
+            <VBox spacing="12" fillWidth="true">
+
     <Label text="Reservations Management (Decorator Pattern)" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
 
+    <!-- Crea una nueva reserva -->
     <VBox spacing="10" style="-fx-background-color: white; -fx-padding: 16; -fx-background-radius: 8;">
         <Label text="Create New Reservation" style="-fx-font-size: 15px; -fx-font-weight: bold;"/>
 
@@ -47,9 +55,48 @@
         <Label text="Prices are fully dynamic and passed directly to the Decorators for recursive calculation." style="-fx-text-fill: #64748b;"/>
     </VBox>
 
+    <!--Selección de pago: el controlador envía la solicitud de pago a través de la fachada -->
+    <VBox spacing="10" style="-fx-background-color: white; -fx-padding: 16; -fx-background-radius: 8;">
+        <Label text="Process Payment" style="-fx-font-size: 15px; -fx-font-weight: bold;"/>
+
+        <GridPane hgap="12" vgap="10">
+
+            <Label text="Reservation ID:" GridPane.columnIndex="0"/>
+            <ComboBox fx:id="paymentReservationCombo"
+                      maxWidth="Infinity"
+                      GridPane.columnIndex="1"
+                      GridPane.rowIndex="0"/>
+
+            <Label text="Amount(COP):" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+            <TextField fx:id="paymentAmountField"
+                       promptText="e.g. 250000"
+                       GridPane.columnIndex="1"
+                       GridPane.rowIndex="1"/>
+
+            <Label text="Payment Token:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+            <TextField fx:id="paymentTokenField"
+                       promptText="e.g. tok_approved"
+                       GridPane.columnIndex="1"
+                       GridPane.rowIndex="2"/>
+
+            <HBox spacing="8" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                <Button text="Process Payment"
+                        onAction="#processPayment"
+                        style="-fx-background-color: #2457a7; -fx-text-fill: white;"/>
+                <Button text="Clear Payment"
+                        onAction="#clearPaymentForm"/>
+            </HBox>
+
+        </GridPane>
+
+        <Label text="Payment is processed through the Facade, Proxy and Adapter."
+               style="-fx-text-fill: #64748b;"/>
+
+    </VBox>
+
     <Label text="Active Reservations" style="-fx-font-size: 15px; -fx-font-weight: bold;"/>
 
-    <TableView fx:id="reservationTable" VBox.vgrow="ALWAYS">
+    <TableView fx:id="reservationTable" minHeight="250.0" prefHeight="300.0" maxHeight="Infinity" VBox.vgrow="ALWAYS">
         <columns>
             <TableColumn fx:id="reservationIdColumn" text="Reservation ID" prefWidth="120"/>
             <TableColumn fx:id="requestIdColumn" text="Request ID" prefWidth="110"/>
@@ -58,4 +105,7 @@
             <TableColumn fx:id="totalPriceColumn" text="Total Calculated Price (COP)" prefWidth="180"/>
         </columns>
     </TableView>
-</VBox>
+
+            </VBox>
+    </content>
+</ScrollPane>

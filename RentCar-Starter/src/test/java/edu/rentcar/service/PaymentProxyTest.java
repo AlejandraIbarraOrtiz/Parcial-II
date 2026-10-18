@@ -34,7 +34,7 @@ class PaymentProxyTest {
 
     // Verifica que un cliente autorizado pueda continuar con el pago.
     @Test
-    void authoridezCustomerShouldProcessPayment(){
+    void authorizedCustomerShouldProcessPayment(){
 
         PaymentService paymentService = new PaymentService() {
 

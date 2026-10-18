@@ -34,26 +34,26 @@ public class PaymentAdapter implements PaymentService {
             //Pago aprobado
             if (response.isApproved()) {
 
-                return new PaymentResult(true, "Pago aprobado");
+                return new PaymentResult(true, "Payment Approved");
             }
 
             //Pago rechazado
             if (response.isDeclined()) {
 
-                return new PaymentResult(false, "Pago rechazado");
+                return new PaymentResult(false, "Payment rejected");
             }
 
-            return new PaymentResult(false, "El pago no pudo completarse");
+            return new PaymentResult(false, "Payment could not be completed");
 
         } catch (IOException exception) {
 
-            return new PaymentResult(false, "Error de comunicación con la API de pagos");
+            return new PaymentResult(false, "Error communicating with the payment API");
 
         } catch (InterruptedException exception) {
 
             Thread.currentThread().interrupt();
 
-            return new PaymentResult(false, "La solicitud de pago fue interrumpida");
+            return new PaymentResult(false, "Payment request was interrumped");
         }
     }
 }
