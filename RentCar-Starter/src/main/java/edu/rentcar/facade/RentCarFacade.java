@@ -64,15 +64,6 @@ public class RentCarFacade {
         return reservationService.createReservation(requestId, selectedDecorators);
     }
 
-    /*
-    - Calcula el valor total de la reserva.
-    - La Fachada delega el cálculo al ReservationService
-     */
-    public double calculatedReservationTotal(Reservation reservation){
-
-        return reservationService.calculateReservationTotal(reservation);
-    }
-
     public PaymentResult processPayment(String reservationId, String customerId,double amount, String paymentToken){
 
         return paymentService.processPayment(reservationId, customerId, amount, paymentToken);

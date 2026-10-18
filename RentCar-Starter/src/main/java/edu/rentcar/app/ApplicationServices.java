@@ -60,11 +60,7 @@ public final class ApplicationServices {
     public static  VehicleService vehicleService(){
         return VEHICLE_SERVICE;
     }
-
-    public static PaymentService paymentService(){
-        return PAYMENT_SERVICE;
-    }
-
+    
     public static RentalRequestService rentalRequestService() {
         return RENTAL_REQUEST_SERVICE;
     }

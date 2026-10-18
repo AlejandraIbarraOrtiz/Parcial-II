@@ -3,7 +3,6 @@ package edu.rentcar.service;
 import edu.rentcar.model.*;
 import edu.rentcar.repository.ReservationRepository;
 
-import java.lang.reflect.Field;
 import java.util.List;
 import java.util.function.Function;
 
@@ -94,27 +93,5 @@ public class ReservationService {
 
     public Function<Reservation, Reservation> withAdditionalDriver(double price) {
         return res -> new AditionalDriverDecorator(res, price);
-    }
-
-    /**
-     * Desempaqueta recursivamente la pila de decoradores hasta obtener la
-     * NormalReservation y consultar su modalidad (RentalMode).
-     **/
-    private String extractModeName(Reservation reservation) {
-        Reservation current = reservation;
-        while (current instanceof ReservationDecorator decorator) {
-            try {
-                Field field = ReservationDecorator.class.getDeclaredField("reservation");
-                field.setAccessible(true);
-                current = (Reservation) field.get(decorator);
-            } catch (Exception e) {
-                break;
-            }
-        }
-
-        if (current instanceof NormalReservation normal && normal.getRentalRequest() != null) {
-            return normal.getRentalRequest().getRentalMode();
-        }
-        return "";
     }
 }

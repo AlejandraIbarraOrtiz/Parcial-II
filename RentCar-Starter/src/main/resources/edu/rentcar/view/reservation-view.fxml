@@ -11,8 +11,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.ScrollPane?>
 
-<ScrollPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.rentcar.controller.ReservationController" fitToWidth="true"
-            fitToHeight="false" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED">
+<ScrollPane xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="edu.rentcar.controller.ReservationController"
+            hbarPolicy="NEVER">
 
     <content>
 
