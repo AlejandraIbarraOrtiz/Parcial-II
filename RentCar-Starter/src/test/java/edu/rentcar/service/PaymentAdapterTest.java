@@ -18,7 +18,7 @@ class PaymentAdapterTest {
                 350000, "tok_approved");
 
         assertTrue(result.isApproved());
-        assertEquals("Pago aprobado", result.getMessage());
+        assertEquals("Payment Approved", result.getMessage());
 
     }
 
@@ -33,10 +33,11 @@ class PaymentAdapterTest {
                 350000, "tok_declined");
 
         assertFalse(result.isApproved());
-        assertEquals("Pago rechazado", result.getMessage());
+        assertEquals("Payment rejected", result.getMessage());
     }
 
-    @Test void apiErrorShouldReturnError(){
+    @Test
+    void apiErrorShouldReturnError(){
 
         PaymentApiClient client = new PaymentApiClient("http://localhost:8080");
 
